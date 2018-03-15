@@ -6,5 +6,5 @@ public class StudentTester {
         cps590.setInstructor("Dwoit");
 
         System.out.println(cps590.getId());
-}
+    }
 }

@@ -3,11 +3,13 @@ import java.util.ArrayList;
 public class Course
 {
     private String id;
-
+    private String title;
     private String instructor;
     private String university;
 
     ArrayList<Student> enrolledStudents;
+
+
 
     public void Course(){
         this.id = "";
