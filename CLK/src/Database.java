@@ -81,7 +81,7 @@ public class Database {
         String courses;
         //gets courses string from SQLite student table using getCourses()
         courses = getCourses(studentId);
-        //if there are no courses, we make the courses equal to the new course
+        //if there are no courses, we make the course String equal to the new course
         if(courses == null){
             courses = newCourse;
         }

@@ -34,7 +34,7 @@ public class StudentTester {
                 System.out.println(resultSet.getString("StudentId") + " " + resultSet.getString("FirstName")
                         + " " + resultSet.getString("LastName") + " Courses: ");
             }*/
-            clickerDatabase.addCourse(50078292, "cps393");
+            clickerDatabase.addCourse(50078292, "cps888");
             System.out.println("50078292 Courses: " + clickerDatabase.getCourses(50078292));
         } catch (SQLException e) {
             e.printStackTrace();
