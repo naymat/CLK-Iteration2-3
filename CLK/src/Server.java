@@ -4,6 +4,7 @@ import java.net.Socket;
 
 public class Server {
     public static final int PORT=4444;
+
     public static void main(String[] args) throws IOException {
         new Server().runServer();
     }
@@ -32,10 +33,24 @@ public class Server {
                 ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
                 String message = "You are now connected";
                 Student inputStudent = null;
+
                 do {
                     try {
-                        inputStudent = (Student) input.readObject();
-                        System.out.println(inputStudent.getId());
+                        ClickerProtocol protocol = new ClickerProtocol(input);
+                        protocol.serverRecive();
+                        /*
+                        byte type = input.readByte();
+                            //S - Student
+                            if (type == 'S') {
+                                inputStudent = (Student) input.readObject();
+                                System.out.println(inputStudent.getId());
+                            }
+                            // T - String(text)
+                            if(type == 'T'){
+                                String inputString = (String) input.readObject();
+                                System.out.println(inputString);
+                            }
+                    */
                     }
                     catch (ClassNotFoundException e) {
                         e.printStackTrace();

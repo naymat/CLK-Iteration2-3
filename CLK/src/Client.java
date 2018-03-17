@@ -3,7 +3,7 @@ import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) throws IOException {
-        String name = args[0];
+        //String name = args[0];
         Socket socket = new Socket("localhost", 4444);
 
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(),true);
@@ -14,9 +14,9 @@ public class Client {
         output.flush();
 
         while (true) {
-            String readerInput = bufferedReader.readLine();
-            output.writeObject(sally);
-            //printWriter.println(name + ": " + readerInput);
+            ClickerProtocol protocol = new ClickerProtocol(output);
+            protocol.sendStudent(sally);
+            protocol.sendString("IT WORKS!!!");
         }
     }
 }

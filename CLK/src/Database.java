@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.sql.*;
 
 public class Database {
@@ -94,13 +96,33 @@ public class Database {
         preparedStatement.setInt(2,studentId);
 
         preparedStatement.execute();
-
-
     }
-    public ResultSet searchStudents(String sqlStatement) throws SQLException {
+
+    public ResultSet searchStudentsTable(String sqlStatement) throws SQLException {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlStatement);
         return resultSet;
+    }
+
+    /***
+     * Checks if a student is currently registered in the database by Student Number
+     * @param student - Student object
+     * @return True - if Student is already registered
+     *         False - if there is no Student Object
+     */
+    public Boolean isStudent(Student student) throws SQLException {
+        ResultSet result;
+
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT StudentId FROM students WHERE StudentId=?;");
+        preparedStatement.setInt(1,student.getId());
+
+        result = preparedStatement.executeQuery();
+        //If there is a result, then the Student object's Student Id is in the database
+        if(result.next())
+            return true;
+        //If there is no result, then the Student object is not currently in database
+        else
+            return false;
     }
 
 

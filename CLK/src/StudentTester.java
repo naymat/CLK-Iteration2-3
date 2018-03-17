@@ -28,14 +28,18 @@ public class StudentTester {
 
             clickerDatabase.getConnection();
             //clickerDatabase.addStudent(intStudentId,firstName,lastName);
-            ResultSet resultSet = clickerDatabase.searchStudents("SELECT StudentId,FirstName,LastName FROM students");
+            ResultSet resultSet = clickerDatabase.searchStudentsTable("SELECT StudentId,FirstName,LastName FROM students");
             /*while (resultSet.next()){
 
                 System.out.println(resultSet.getString("StudentId") + " " + resultSet.getString("FirstName")
                         + " " + resultSet.getString("LastName") + " Courses: ");
             }*/
-            clickerDatabase.addCourse(50078292, "cps888");
-            System.out.println("50078292 Courses: " + clickerDatabase.getCourses(50078292));
+            //clickerDatabase.addCourse(50078292, "cps888");
+            Student sally = new Student(50075212, "Jhon","Smith");
+            clickerDatabase.addStudent(sally);
+            System.out.println("is Sally a student: " + clickerDatabase.isStudent(sally));
+            System.out.println("Is jhone a stuent?: " + clickerDatabase.isStudent(new Student(50023213,"Jhone","yolo")));
+            //System.out.println("50078292 Courses: " + clickerDatabase.getCourses(50078292));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
