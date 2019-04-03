@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_clk" default="compile.module.clk">
+  <dirname property="module.clk.basedir" file="${ant.file.module_clk}"/>
+  
+  <property name="module.jdk.home.clk" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.clk" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.clk" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.clk" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="clk.output.dir" value="${module.clk.basedir}/out/production/CLK"/>
+  <property name="clk.testoutput.dir" value="${module.clk.basedir}/out/test/CLK"/>
+  
+  <path id="clk.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="clk.module.production.classpath">
+    <path refid="${module.jdk.classpath.clk}"/>
+    <pathelement location="${basedir}/lib/sqlite-jdbc-3.21.0.jar"/>
+  </path>
+  
+  <path id="clk.runtime.production.module.classpath">
+    <pathelement location="${clk.output.dir}"/>
+    <pathelement location="${basedir}/lib/sqlite-jdbc-3.21.0.jar"/>
+  </path>
+  
+  <path id="clk.module.classpath">
+    <path refid="${module.jdk.classpath.clk}"/>
+    <pathelement location="${clk.output.dir}"/>
+    <pathelement location="${basedir}/lib/sqlite-jdbc-3.21.0.jar"/>
+  </path>
+  
+  <path id="clk.runtime.module.classpath">
+    <pathelement location="${clk.testoutput.dir}"/>
+    <pathelement location="${clk.output.dir}"/>
+    <pathelement location="${basedir}/lib/sqlite-jdbc-3.21.0.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.clk">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.clk">
+    <patternset refid="excluded.from.module.clk"/>
+  </patternset>
+  
+  <path id="clk.module.sourcepath">
+    <dirset dir="${module.clk.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.clk" depends="compile.module.clk.production,compile.module.clk.tests" description="Compile module CLK"/>
+  
+  <target name="compile.module.clk.production" depends="register.custom.compilers" description="Compile module CLK; production classes">
+    <mkdir dir="${clk.output.dir}"/>
+    <javac2 destdir="${clk.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.clk}/javac">
+      <compilerarg line="${compiler.args.clk}"/>
+      <bootclasspath refid="clk.module.bootclasspath"/>
+      <classpath refid="clk.module.production.classpath"/>
+      <src refid="clk.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.clk"/>
+    </javac2>
+    
+    <copy todir="${clk.output.dir}">
+      <fileset dir="${module.clk.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.clk.tests" depends="register.custom.compilers,compile.module.clk.production" description="compile module CLK; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.clk" description="cleanup module">
+    <delete dir="${clk.output.dir}"/>
+    <delete dir="${clk.testoutput.dir}"/>
+  </target>
+</project>

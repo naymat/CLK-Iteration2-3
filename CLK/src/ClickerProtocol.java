@@ -17,13 +17,6 @@ public class ClickerProtocol {
     ObjectInputStream input;
 
     //Constructors
-    public ClickerProtocol(ObjectOutputStream output) {
-        this.output = output;
-    }
-
-    public ClickerProtocol(ObjectInputStream input) {
-        this.input = input;
-    }
 
     public ClickerProtocol(ObjectInputStream input, ObjectOutputStream output) {
         this.input = input;
@@ -52,24 +45,57 @@ public class ClickerProtocol {
         output.writeObject(string);
     }
 
-    /**
-     * Preforms predefined actions for server depending on what type of Object it receives
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    public void serverRecive() throws IOException, ClassNotFoundException {
-        byte type = input.readByte();
-        //S - Student
-        if (type == 'S') {
-            Student inputStudent = (Student) input.readObject();
-            System.out.println(inputStudent.getId());
+    public String[] requestStudentCourses(Student student) throws IOException, ClassNotFoundException {
+        //Sends request
+        output.flush();
+        output.writeByte('R');
+        output.writeObject(student);
+        //Receives array of courses(String)
+        Byte type = input.readByte();
+        if (type == 'R'){
+            return (String[]) input.readObject();
         }
-        // T - String(text)
-        if(type == 'T'){
-            String inputString = (String) input.readObject();
-            System.out.println(inputString);
-        }
+        return null;
+    }
 
+    public String[] requestAllCourses() throws IOException, ClassNotFoundException{
+        //Sends request
+        output.flush();
+        output.writeByte('A');
+        output.writeObject("filler");
+        //Receives array of courses(String)
+        Byte type = input.readByte();
+        if (type == 'R'){
+            return (String[]) input.readObject();
+        }
+        return null;
+    }
+
+    public void enrollStudent(String course) throws IOException {
+        output.flush();
+        output.writeByte('E');
+        output.writeObject(course);
+    }
+
+
+    public Boolean startSession(String strCourseId) throws IOException, ClassNotFoundException {
+        output.flush();
+        output.writeByte('B');
+        output.writeObject(strCourseId);
+
+        String status = (String)input.readObject();
+        if(status.equalsIgnoreCase("true")){
+            return true;
+        }
+        else
+            return false;
+    }
+    public Question getQuestion() throws IOException, ClassNotFoundException {
+        output.flush();
+        output.writeByte('Q');
+        output.writeObject("dummy");
+
+        return (Question) input.readObject(); 
     }
 
 

@@ -4,17 +4,22 @@ public class Course
 {
     private String id;
     private String title;
-    private String instructor;
+    private Instructor instructor;
     private String university;
 
     ArrayList<Student> enrolledStudents;
 
 
+    public Course(String id, Instructor instructor, String university){
+        this.id = id;
+        this.instructor = instructor;
+        this.university = university;
 
-    public void Course(){
-        this.id = "";
-        this.instructor = "";
-        this.university = "";
+    }
+
+    public Course(String id, int instructorId,String firstName, String lastName, String university){
+        this.id = id;
+        this.instructor = new Instructor(instructorId,firstName,lastName);
     }
 
     /**
@@ -33,11 +38,11 @@ public class Course
         this.id = id;
     }
 
-    public String getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(String instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 

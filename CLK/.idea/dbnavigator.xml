@@ -23,18 +23,14 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="1cc371ec-8f8f-4d8c-95ed-b201331c9e2a">
-        <schema name="main" object-types="column, table, view" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="1cc371ec-8f8f-4d8c-95ed-b201331c9e2a">
-      <console name="clicker" type="STANDARD"><![CDATA[SELECT StudentId,Courses FROM students WHERE FirstName='Aaron';]]></console>
+      <console name="clicker" type="STANDARD" />
     </connection>
     <connection id="20ca3517-70d4-48ab-80f2-e0ede89cf6f6">
-      <console name="Connection" type="STANDARD"><![CDATA[SELECT StudentId,FirstName,Courses FROM students WHERE StudentId=500334192;]]></console>
+      <console name="Connection" type="STANDARD"><![CDATA[SELECT Question,Answer FROM CPS305;]]></console>
     </connection>
     <connection id="fac3cdbb-a5d3-4655-b559-17e463e85805">
       <console name="Connection 1" type="STANDARD" />
@@ -44,6 +40,9 @@
     <connection id="1cc371ec-8f8f-4d8c-95ed-b201331c9e2a" />
     <connection id="20ca3517-70d4-48ab-80f2-e0ede89cf6f6" />
     <connection id="fac3cdbb-a5d3-4655-b559-17e463e85805" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="20ca3517-70d4-48ab-80f2-e0ede89cf6f6" dataset="main.courses" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -74,7 +73,7 @@
           <description value="Database for iClicker project" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="3.0" />
+          <database-version value="3.2" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
@@ -154,7 +153,7 @@
           <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
-          <database-version value="3.0" />
+          <database-version value="3.2" />
           <driver-source value="BUILTIN" />
           <driver-library value="" />
           <driver value="" />
